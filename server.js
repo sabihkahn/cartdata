@@ -18,9 +18,15 @@ app.post("/", async (req, res) => {
     await order.save();
     res.status(201).send({ success: true, message: "Order placed", order });
   } catch (error) {
-    res.status(500).send({ success: false, message: "Failed", error });
+    console.error("ERROR saving order:", error);  // full stacktrace in logs
+    res.status(500).send({
+      success: false,
+      message: "Failed to save order",
+      error: error.message || error.toString()
+    });
   }
 });
+
 
 
 
