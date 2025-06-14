@@ -26,7 +26,23 @@ app.post("/", async (req, res) => {
     });
   }
 });
-
+app.get("/orders", async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ createdAt: -1 }); // latest first
+    res.status(200).send({
+      success: true,
+      message: "Orders fetched successfully",
+      data: orders,
+    });
+  } catch (error) {
+    console.error("ERROR fetching orders:", error);
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch orders",
+      error: error.message || error.toString(),
+    });
+  }
+});
 
 
 
