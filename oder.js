@@ -15,6 +15,7 @@ const orderSchema = new mongoose.Schema(
         braceletText: String,    // 📝 Text to write on bracelet
         braceletColor: String,   // 🎨 Color of the bracelet
         userAddress: String,     // 📦 Optional separate address per item
+        age: String              // ✅ Add this line for age
       },
     ],
   },
