@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./db.js";
-import Order from "./oder.js";
+import Order from "./oder.js"; // make sure filename matches (order.js / oder.js)
 
 dotenv.config();
 
@@ -12,23 +12,26 @@ app.use(express.json());
 
 connectDB();
 
+// POST route
 app.post("/", async (req, res) => {
   try {
     const order = new Order(req.body);
     await order.save();
     res.status(201).send({ success: true, message: "Order placed", order });
   } catch (error) {
-    console.error("ERROR saving order:", error);  // full stacktrace in logs
+    console.error("ERROR saving order:", error);
     res.status(500).send({
       success: false,
       message: "Failed to save order",
-      error: error.message || error.toString()
+      error: error.message || error.toString(),
     });
   }
 });
+
+// GET route
 app.get("/orders", async (req, res) => {
   try {
-    const orders = await Order.find().sort({ createdAt: -1 }); // latest first
+    const orders = await Order.find().sort({ createdAt: -1 });
     res.status(200).send({
       success: true,
       message: "Orders fetched successfully",
@@ -43,7 +46,5 @@ app.get("/orders", async (req, res) => {
     });
   }
 });
-
-
 
 export default app;

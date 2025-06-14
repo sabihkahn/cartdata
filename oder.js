@@ -12,6 +12,9 @@ const orderSchema = new mongoose.Schema(
         quantity: Number,
         price: Number,
         image: String,
+        braceletText: String,    // 📝 Text to write on bracelet
+        braceletColor: String,   // 🎨 Color of the bracelet
+        userAddress: String,     // 📦 Optional separate address per item
       },
     ],
   },
@@ -19,5 +22,4 @@ const orderSchema = new mongoose.Schema(
 );
 
 const Order = mongoose.model("addtocar", orderSchema);
-
 export default Order;
